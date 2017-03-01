@@ -19,6 +19,12 @@ class OtherThread(QThread):
         import se
         from selenium.webdriver.common.keys import Keys
         from selenium import webdriver
+#        config=[]
+#        with open("settings.conf","r") as f:
+#            for each in f:
+#                config.append(each)
+#        f.close()
+#        driver = str(config[0].replace('\n',''))
         c = webdriver.Chrome(self.driver)
         c.implicitly_wait(10)
         se.browse("http://google.com",c)
