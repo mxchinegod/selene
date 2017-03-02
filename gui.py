@@ -1,4 +1,4 @@
-import sys, os
+import sys, os, modules
 from PyQt5.QtWidgets import (QMainWindow, QTextEdit, 
     QAction, QFileDialog, QApplication, QLabel)
 from PyQt5.QtGui import QIcon
@@ -9,28 +9,17 @@ class OtherThread(QThread):
     # This is where I setup my signals to communicate to the main program class. The 'str' parameter means that the signal will emit a string object to whatever function we connect it to in the main program thread.
     to_log = pyqtSignal(str)
 
-    def __init__(self, driver, parent=None):
+    def __init__(self, driver, instructions, mod, parent=None):
         
         super(OtherThread, self).__init__(parent)
         # any other __init__ code here. Be careful what you pass to your QThread in the init, because it may tie it back to the main program thread. Better to create the class, and then assign variables from the main program class afterwards.
         self.driver = driver
+        self.instructions = instructions
+        self.mod = mod
         
     def run(self):
-        import se
-        from selenium.webdriver.common.keys import Keys
-        from selenium import webdriver
-#        config=[]
-#        with open("settings.conf","r") as f:
-#            for each in f:
-#                config.append(each)
-#        f.close()
-#        driver = str(config[0].replace('\n',''))
-        c = webdriver.Chrome(self.driver)
-        c.implicitly_wait(10)
-        se.browse("http://google.com",c)
-        se.grab("""//*[@id="lst-ib"]""","click",c)
-        se.keys("hello world",c,1)
-        se.keys(Keys.ENTER,c,1)
+        if self.mod == "craigslist":
+            modules.craigslist(self.driver,self.instructions)
 
 
 class About(QMainWindow):
@@ -53,7 +42,7 @@ class About(QMainWindow):
         lbl2.resize(300,30)
         lbl2.move(10, 4)
         
-        lbl3 = QLabel('version 1.0', self)
+        lbl3 = QLabel('version 1.1', self)
         lbl3.resize(300,30)
         lbl3.move(10, 30) 
         
@@ -70,7 +59,8 @@ class GUI(QMainWindow):
         
         super().__init__()
         self.initUI()
-        
+        mod = ''
+        self.mod = mod
         
     def initUI(self):
         
@@ -86,6 +76,10 @@ class GUI(QMainWindow):
         self.setCentralWidget(self.textEdit)
         
         self.statusBar()
+        
+        selectMod = QAction(QIcon('craigslist.png'), 'Craigslist', self)
+        selectMod.setStatusTip('Select the craigslist post bot')
+        selectMod.triggered.connect(self.craigSelect)
         
         openFile = QAction(QIcon('open.png'), 'Open...', self)
         openFile.setShortcut('Ctrl+O')
@@ -118,6 +112,10 @@ class GUI(QMainWindow):
         runMenu = menubar.addMenu('&Program')
         runMenu.addAction(runSelene)
         
+        fileMenu = menubar.addMenu('&Modules')
+        fileMenu.addAction(selectMod)  
+        fileMenu.addAction(openFile) 
+        
         runMenu = menubar.addMenu('&Info')
         runMenu.addAction(openInfo)
         
@@ -130,28 +128,37 @@ class GUI(QMainWindow):
     def runSelene(self):
 
         # Check config for needed info
-        config=[]
+        settings=[]
         with open("settings.conf","r") as f:
+            
             for each in f:
-                config.append(each)
+                settings.append(each)
         f.close()
-        if len(config)==1:
-            pass
+                        
+        print(settings)
+            
+        for each in settings:
+            if each.split('.')[1]=="csv\n":
+                instructions = each.replace('\n','')
+                        
+            elif each.split('.')[1]=="exe\n":
+                driver = each.replace('\n','')
+                        
+            else:
+                mod = each.replace('\n','')
+        if !instructions:
             self.textEdit.setText(" [ ! ] No automation file selected! Ctrl+O to select file from your computer.\n\n")
+        elif !mod:
+            self.textEdit.setText("[ ! ] No module selected! Use the module drop-down to select a pre-configured mod.\n\n" )
+        elif !driver:
+            self.textEdit.setText("[ ! ] No driver loaded! Use the module drop-down to select a pre-configured mod.\n\n" )
+
         else:
             self.textEdit.setText("Running Selene...\n\n")
-            self.textEdit.append(" [ + ] Using "+str(config[1])+"\n")
-            self.textEdit.append(" [ + ] Loading "+str(config[0])+"\n")
-            config=[]
-            with open("settings.conf","r") as f:
-                for each in f:
-                    config.append(each)
-            f.close()
-            driver = str(config[0].replace('\n',''))
-            # Make sure you make the QThread part of the main class scope so it isn't garbage collected once the click_start() method has finished.
-            self.worker = OtherThread(driver)
-            # Optional: assign variables needed by the worker.
-            #self.worker.load_urls(list_of_urls)
+            self.textEdit.append(" [ + ] Using "+str(instructions)+"\n")
+            self.textEdit.append(" [ + ] Loading "+str(driver)+"\n")
+            self.textEdit.append(" [ + ] Selected "+str(mod)+"\n" )
+            self.worker = OtherThread(driver, instructions, mod)
             self.worker.start()
             
     def infoDialog(self):
@@ -171,7 +178,6 @@ class GUI(QMainWindow):
                     f.write(fname[0])
                 f.close()
 
-                
     def selectDialog(self):
         
         dname = QFileDialog.getOpenFileName(self, 'Select driver', '/chromedriver.exe')
@@ -182,6 +188,13 @@ class GUI(QMainWindow):
             f.close()
         else:
             self.textEdit.setText(" [ ! ] File was not an executable. Please make sure it's the proper 'chromedriver.exe' file.")        
+        
+    def craigSelect(self):
+        with open("settings.conf","a") as f:
+            f.write("craigslist\n")
+        f.close()
+        self.textEdit.setText(" [ + ] Craigslist module selected!\n\n")
+        
         
 if __name__ == '__main__':
     
