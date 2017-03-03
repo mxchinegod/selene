@@ -4,7 +4,7 @@
 Selene is a selenium loader built in python3 with PyQt5 as the GUI.
 
 # use
-Click Start.bat in Windows to launch, or run gui.py from the command line in your OS of choice. 
+run gui.py from the command line in your OS of choice. 
 
 # how 
 Load a .csv that follows the rules mentioned in the header of any example you find in instructions/*.csv. You can then easily build selenium routines with the interface se.py and add to it with relative ease.
