@@ -19,8 +19,8 @@ class OtherThread(QThread):
         
     def run(self):
         if self.mod == "craigslist":
-            modules.craigslist(self.driver,self.instructions)
-
+            self.start = modules.craigslist(self.driver,self.instructions)
+            self.start()
 
 class About(QMainWindow):
     
@@ -59,8 +59,6 @@ class GUI(QMainWindow):
         
         super().__init__()
         self.initUI()
-        mod = ''
-        self.mod = mod
         
     def initUI(self):
         
@@ -128,31 +126,37 @@ class GUI(QMainWindow):
     def runSelene(self):
 
         # Check config for needed info
+        instructions=''
+        mod=''
+        driver=''
         settings=[]
         with open("settings.conf","r") as f:
             
             for each in f:
                 settings.append(each)
+                
         f.close()
-                        
-        print(settings)
             
         for each in settings:
-            if each.split('.')[1]=="csv\n":
-                instructions = each.replace('\n','')
-                        
-            elif each.split('.')[1]=="exe\n":
-                driver = each.replace('\n','')
-                        
-            else:
+            try:
+                if str(each.split('.')[1])=="csv\n":
+                    instructions = each.replace('\n','')
+                    
+                elif str(each.split('.')[1])=="exe\n":
+                    driver = each.replace('\n','')
+                    
+                else:
+                    mod = each.replace('\n','')
+            except:
                 mod = each.replace('\n','')
-        if !instructions:
+                
+                
+        if instructions == '':
             self.textEdit.setText(" [ ! ] No automation file selected! Ctrl+O to select file from your computer.\n\n")
-        elif !mod:
+        elif mod == '':
             self.textEdit.setText("[ ! ] No module selected! Use the module drop-down to select a pre-configured mod.\n\n" )
-        elif !driver:
-            self.textEdit.setText("[ ! ] No driver loaded! Use the module drop-down to select a pre-configured mod.\n\n" )
-
+        elif driver == '':
+            self.textEdit.setText("[ ! ] No driver loaded! Select the 'chromedriver.exe' file from your computer.\n\n" )
         else:
             self.textEdit.setText("Running Selene...\n\n")
             self.textEdit.append(" [ + ] Using "+str(instructions)+"\n")
@@ -175,7 +179,7 @@ class GUI(QMainWindow):
                 self.textEdit.setText(" [ ! ] File is not a compatible .csv!\n\n")
             else: 
                 with open("settings.conf","a") as f:
-                    f.write(fname[0])
+                    f.write(fname[0]+'\n')
                 f.close()
 
     def selectDialog(self):
