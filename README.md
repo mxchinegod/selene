@@ -3,6 +3,13 @@
 # selene
 Selene is a selenium loader built in python3 with PyQt5 as the GUI.
 
+# dependencies
+
+python 3.x+,
+selenium 3.1+, 
+PyQt5, 
+pandas 0.19.2
+
 # use
 run gui.py from the command line in your OS of choice. 
 
