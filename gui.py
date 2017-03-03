@@ -150,7 +150,7 @@ class GUI(QMainWindow):
             except:
                 mod = each.replace('\n','')
                 
-                
+        drm_=''
         if instructions == '':
             self.textEdit.setText(" [ ! ] No automation file selected! Ctrl+O to select file from your computer.\n\n")
         elif mod == '':
@@ -158,12 +158,15 @@ class GUI(QMainWindow):
         elif driver == '':
             self.textEdit.setText("[ ! ] No driver loaded! Select the 'chromedriver.exe' file from your computer.\n\n" )
         else:
-            self.textEdit.setText("Running Selene...\n\n")
-            self.textEdit.append(" [ + ] Using "+str(instructions)+"\n")
-            self.textEdit.append(" [ + ] Loading "+str(driver)+"\n")
-            self.textEdit.append(" [ + ] Selected "+str(mod)+"\n" )
-            self.worker = OtherThread(driver, instructions, mod)
-            self.worker.start()
+            if drm_=='':
+                self.textEdit.setText("NO LICENSE FOUND.\n\n")
+            else:
+                self.textEdit.setText("Running Selene...\n\n")
+                self.textEdit.append(" [ + ] Using "+str(instructions)+"\n")
+                self.textEdit.append(" [ + ] Loading "+str(driver)+"\n")
+                self.textEdit.append(" [ + ] Selected "+str(mod)+"\n" )
+                self.worker = OtherThread(driver, instructions, mod)
+                self.worker.start()
             
     def infoDialog(self):
         
