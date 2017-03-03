@@ -1,4 +1,4 @@
-City,Category,Body Paragraph,Postal Code,Titles,"Email;Password"
-vancouver,bbb,blahblahblah,V5K0A1,Title1,you@domain.com;password
-vancouver,bbb,blahblahblah,V5K0A1,Title1,you@domain.com;password
-vancouver,bbb,blahblahblah,V5K0A1,Title1,you@domain.com;password
+City,Category,Body Paragraph,Postal Code,Titles,"Email;Password",License Info,Sublocation,Images
+vancouver,skilled trade services,blahblahblah,V5K0A1,Title1,you@domain.com;password,your license info,sublocation for your area,craigslist_images
+vancouver,skilled trade services,blahblahblah,V5K0A1,Title2,you@domain.com;password,your license info,sublocation for your area,craigslist_images
+vancouver,skilled trade services,blahblahblah,V5K0A1,Title3,you@domain.com;password,your license info,sublocation for your area,craigslist_images

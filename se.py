@@ -1,31 +1,108 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from modules import log_
 
-def grab(xpath,act,c):
+def grab(send,act,c,element):
     
-    if act == "click":
-        try:
-            c.find_element_by_xpath(xpath).click()
-        except:
-            error = "There was an error clicking an object!"
-            return error
+
+    if element == "xpath":
         
-    elif act == "href":
-        try:
-            href = c.find_element_by_xpath(xpath).get_attribute("href")
-            return href
-        except:
-            error = "There was an error retrieving the <a> tag of an object!"
-            return error
+        if act == "select":
+            try:
+                selection = c.find_element_by_xpath(send)
+                return selection
+            except:
+                error = "There was an error selecting an object by xpath!"
+                log_(error)
+                
+        if act == "click":
+            try:
+                c.find_element_by_xpath(send).click()
+            except:
+                error = "There was an error clicking an object!"
+                log_(error)
+            
+        elif act == "href":
+            try:
+                href = c.find_element_by_xpath(send).get_attribute("href")
+                return href
+            except:
+                error = "There was an error retrieving the <a> tag of an object!"
+                log_(error)
+            
+        elif act == "text":
+            try:
+                text = c.find_element_by_xpath(send).text
+                return text
+            except:
+                error = "There was an error getting the text value of an object!"
+                log_(error)
+                
+    if element == "class":
         
-    elif act == "text":
-        try:
-            text = c.find_element_by_xpath(xpath).text
-            return text
-        except:
-            error = "There was an error getting the text value of an object!"
-            return error
+        if act == "select":
+            try:
+                selection = c.find_element_by_class(send)
+                return selection
+            except:
+                error = "There was an error selecting an object by class!"
+                log_(error)
+                
+        if act == "click":
+            try:
+                c.find_element_by_class(send).click()
+            except:
+                error = "There was an error clicking an object!"
+                log_(error)
+            
+        elif act == "href":
+            try:
+                href = c.find_element_by_class(send).get_attribute("href")
+                return href
+            except:
+                error = "There was an error retrieving the <a> tag of an object!"
+                log_(error)
+            
+        elif act == "text":
+            try:
+                text = c.find_element_by_class(send).text
+                return text
+            except:
+                error = "There was an error getting the text value of an object!"
+                log_(error)
+    
+    if element == "id":
         
+        if act == "select":
+            try:
+                selection = c.find_element_by_id(send)
+                return selection
+            except:
+                error = "There was an error selecting an object by id!"
+                log_(error) 
+                
+        if act == "click":
+            try:
+                c.find_element_by_id(send).click()
+            except:
+                error = "There was an error clicking an object!"
+                log_(error)
+            
+        elif act == "href":
+            try:
+                href = c.find_element_by_id(send).get_attribute("href")
+                return href
+            except:
+                error = "There was an error retrieving the <a> tag of an object!"
+                log_(error)
+            
+        elif act == "text":
+            try:
+                text = c.find_element_by_id(send).text
+                return text
+            except:
+                error = "There was an error getting the text value of an object!"
+                log_(error)        
         
 def browse(url,c):
     
