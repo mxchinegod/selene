@@ -2,7 +2,7 @@ import se, random, time, os
 import pandas as pd
 from selenium import webdriver
 
-def log_(msg):
+def log(msg):
     with open("error.log", 'a') as error_log:
         error_log.write(msg+'\n')
         error_log.close()
@@ -39,7 +39,7 @@ def craigslist(driver,instructions):
                 se.grab("""/html/body/article/section/form/ul/li["""+sublocation+"""]/label/input""","click",c,"xpath")
             except:
                 msg = " [!] No sublocation selected! This could mean there was none for your main city, or that something went wrong!"
-                log_(msg)
+                log(msg)
             try:
                 se.grab("""//*[@id="inputEmailHandle"]""","click",c,"xpath")
                 se.keys(login[0],1,c)
@@ -47,13 +47,13 @@ def craigslist(driver,instructions):
                 se.keys(login[1]+'\n',1,c)
             except:
                 msg=" [!] Login didn't happen. Maybe logged-in already; don't worry about this error. Otherwise, double-check credentials.\n"
-                log_(msg)
+                log(msg)
             
             try:
                 se.grab("""/html/body/article/section/form/ul/li[1]/label/input""","click",c,"xpath")
             except:
                 msg=" [!] No sublocation found, continuing without one for "+location+".\n"
-                log_(msg)
+                log(msg)
                 
             rand = random.randint(0,df.shape[0]-1)
             title_=df.iat[rand,4]

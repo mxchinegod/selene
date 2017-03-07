@@ -1,6 +1,6 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
-from modules import log_
+import modules
 
 def grab(send,act,c,element):
     
@@ -13,14 +13,14 @@ def grab(send,act,c,element):
                 return selection
             except:
                 error = "There was an error selecting an object by xpath!"
-                log_(error)
+                modules.log(error)
                 
         if act == "click":
             try:
                 c.find_element_by_xpath(send).click()
             except:
                 error = "There was an error clicking an object!"
-                log_(error)
+                modules.log(error)
             
         elif act == "href":
             try:
@@ -28,7 +28,7 @@ def grab(send,act,c,element):
                 return href
             except:
                 error = "There was an error retrieving the <a> tag of an object!"
-                log_(error)
+                modules.log(error)
             
         elif act == "text":
             try:
@@ -36,7 +36,7 @@ def grab(send,act,c,element):
                 return text
             except:
                 error = "There was an error getting the text value of an object!"
-                log_(error)
+                modules.log(error)
                 
     if element == "class":
         
@@ -46,14 +46,14 @@ def grab(send,act,c,element):
                 return selection
             except:
                 error = "There was an error selecting an object by class!"
-                log_(error)
+                modules.log(error)
                 
         if act == "click":
             try:
                 c.find_element_by_class(send).click()
             except:
                 error = "There was an error clicking an object!"
-                log_(error)
+                modules.log(error)
             
         elif act == "href":
             try:
@@ -61,7 +61,7 @@ def grab(send,act,c,element):
                 return href
             except:
                 error = "There was an error retrieving the <a> tag of an object!"
-                log_(error)
+                modules.log(error)
             
         elif act == "text":
             try:
@@ -69,7 +69,7 @@ def grab(send,act,c,element):
                 return text
             except:
                 error = "There was an error getting the text value of an object!"
-                log_(error)
+                modules.log(error)
     
     if element == "id":
         
@@ -79,14 +79,14 @@ def grab(send,act,c,element):
                 return selection
             except:
                 error = "There was an error selecting an object by id!"
-                log_(error) 
+                modules.log(error) 
                 
         if act == "click":
             try:
                 c.find_element_by_id(send).click()
             except:
                 error = "There was an error clicking an object!"
-                log_(error)
+                modules.log(error)
             
         elif act == "href":
             try:
@@ -94,7 +94,7 @@ def grab(send,act,c,element):
                 return href
             except:
                 error = "There was an error retrieving the <a> tag of an object!"
-                log_(error)
+                modules.log(error)
             
         elif act == "text":
             try:
@@ -102,7 +102,7 @@ def grab(send,act,c,element):
                 return text
             except:
                 error = "There was an error getting the text value of an object!"
-                log_(error)        
+                modules.log(error)        
         
 def browse(url,c):
     
