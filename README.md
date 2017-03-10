@@ -5,9 +5,10 @@ Selene is a selenium loader built in python3 with PyQt5 as the GUI.
 
 # use
 run install.bat:
- it will install python 3.6 (program language), selenium (automation), pandas (data management), and PyQT (user interface).
+
+1. it will install python 3.6 (program language), selenium (automation), pandas (data management), and PyQT (user interface).
  
-then run StartSelene.vbs
+2. then run StartSelene.vbs
 
 # how 
 Load a .csv that follows the rules mentioned in the header of any example you find in instructions/*.csv. You can then easily build selenium routines with the interface se.py and add to it with relative ease.
