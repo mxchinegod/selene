@@ -1,4 +1,4 @@
-<img src="https://github.com/DylanAlloy/selene/blob/master/icon.png" width="100px">
+<img src="https://github.com/DylanAlloy/selene/blob/master/img/icon.png" width="100px">
 
 # selene
 Selene is a selenium loader built in python3 with PyQt5 as the GUI.
