@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "selene.bat",0,True
