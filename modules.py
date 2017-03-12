@@ -8,7 +8,7 @@ def log(msg):
         error_log.write(msg+'\n')
         error_log.close()
 
-def craigslist(driver,instructions,time):
+def craigslist(driver,instructions,timer):
 
     c = webdriver.Chrome(driver)
     c.implicitly_wait(10)
@@ -77,7 +77,7 @@ def craigslist(driver,instructions,time):
             se.keys(body,1,c)
             if df.iat[x,9] != '':
                 se.grab("""//*[@id="contact_phone"]""","click",c,"xpath")
-                se.keys(df.iat[x,9].split(":")[0],1,c)
+                se.keys(df.iat[x,9].split(";")[0],1,c)
                 if df.iat[x,9].split(';')[1] == "call":
                     se.grab("""//*[@id="contact_phone_ok"]""","click",c,"xpath")
                 elif df.iat[x,9].split(";")[1] == "text":
