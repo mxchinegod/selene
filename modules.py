@@ -1,6 +1,7 @@
 import se, random, time, os
 import pandas as pd
 from selenium import webdriver
+import spintax
 
 def log(msg):
 
@@ -70,11 +71,11 @@ def craigslist(driver,instructions,timer):
             rand = random.randint(0,df.shape[0]-1)
             title_=df.iat[rand,4]
             se.grab("""//*[@id="PostingTitle"]""","click",c,"xpath")
-            se.keys(title_,1,c)
+            se.keys(spintax.spin(title_),1,c)
             se.grab("""//*[@id="postal_code"]""","click",c,"xpath")
             se.keys(str(p_code),1,c)
             se.grab("""//*[@id="PostingBody"]""","click",c,"xpath")
-            se.keys(body,1,c)
+            se.keys(spintax.spin(body),1,c)
             if df.iat[x,9] != '':
                 se.grab("""//*[@id="contact_phone"]""","click",c,"xpath")
                 se.keys(df.iat[x,9].split(";")[0],1,c)
