@@ -19,13 +19,13 @@ def craigslist(driver,instructions,timer):
     for each in str(df.iat[x,5]).split(';'):
         login.append(each)
     for _ in range(df.shape[0]):
-        location = df.iat[x,0]
+        location = spintax.spin(str(df.iat[x,0]))
         for _ in range(df.shape[1]):
-            category = df.iat[x,1]
-            p_code = df.iat[x,3]
-            body = df.iat[x,2]
-            phone = df.iat[x,9]
-            contact = df.iat[x,10]
+            category = spintax.spin(str(df.iat[x,1]))
+            p_code = spintax.spin(str(df.iat[x,3]))
+            body = spintax.spin(str(df.iat[x,2]))
+            phone = spintax.spin(str(df.iat[x,9]))
+            contact = spintax.spin(str(df.iat[x,10]))
             se.browse("https://"+str(location)+".craigslist.org/",c)
             se.grab("""//*[@id="post"]""","click",c,"xpath")
             se.grab("""/html/body/article/section/form/ul/li[10]/label/span[2]""","click",c,"xpath")
