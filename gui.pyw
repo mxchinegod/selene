@@ -63,6 +63,9 @@ class GUI(QMainWindow):
 
     def initUI(self):
 
+        self.mod=''
+        self.instructions=''
+        self.timer=''
         if os.path.isfile("modules\chromedriver.exe"):
             cwd = os.getcwd()
             init_msg = " [ + ] 'chromedriver.exe' found!"
