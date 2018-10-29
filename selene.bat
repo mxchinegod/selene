@@ -1,1 +1,1 @@
-python gui.pyw
+python C:/selene-master/gui.pyw
